@@ -33,12 +33,12 @@ public class ProductController {
         model.addAttribute("product", productService.getProduct(id));
 
         //Send Page view event
-        PageViewEvent pageViewEvent = new PageViewEvent();
-        pageViewEvent.setPageUrl("springframework.guru/product/" + id);
-        pageViewEvent.setPageViewDate(new Date());
-        pageViewEvent.setCorrelationId(UUID.randomUUID().toString());
-
-        pageViewService.sendPageViewEvent(pageViewEvent);
+//        PageViewEvent pageViewEvent = new PageViewEvent();
+//        pageViewEvent.setPageUrl("springframework.guru/product/" + id);
+//        pageViewEvent.setPageViewDate(new Date());
+//        pageViewEvent.setCorrelationId(UUID.randomUUID().toString());
+//
+//        pageViewService.sendPageViewEvent(pageViewEvent);
 
         return "product";
     }

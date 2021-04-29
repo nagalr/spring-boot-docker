@@ -148,7 +148,7 @@
                         <!-- -e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice -e SPRING_PROFILES_ACTIVE=mysql-->
                         <!-- -e SPRING_RABBITMQ_HOST=rabbitmq springframeworkguru/pageviewservice-->
                         <image>
-                            <name>springframeworkguru/pageviewservice</name>
+                            <name>ronnen/pageservice</name>
                             <alias>pageviewservice</alias>
                             <run>
                                 <ports>

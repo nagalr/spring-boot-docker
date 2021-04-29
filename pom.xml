@@ -106,7 +106,7 @@
                                 </dependsOn>
                             </run>
 						</image>
-                        <!--mysql container-->
+                        <!--mysql image-->
 						<image>
 							<name>mysql</name>
                             <alias>mysqldb</alias>
@@ -126,7 +126,7 @@
                                 </wait>
 							</run>
 						</image>
-                        <!--rabbit container-->
+                        <!--rabbit image-->
                         <image>
                             <name>rabbitmq</name>
                             <alias>myrabbitmq</alias>
@@ -148,8 +148,8 @@
                         <!-- -e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice -e SPRING_PROFILES_ACTIVE=mysql-->
                         <!-- -e SPRING_RABBITMQ_HOST=rabbitmq springframeworkguru/pageviewservice-->
                         <image>
-                            <name>springframeworkguru/pageviewservice</name>
-                            <alias>pageviewservice</alias>
+                            <name>sfg/pvservice</name>
+                            <alias>pvservice</alias>
                             <run>
                                 <ports>
                                     <port>8081:8081</port>

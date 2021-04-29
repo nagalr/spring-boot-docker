@@ -108,7 +108,7 @@
 						</image>
                         <!--mysql image-->
 						<image>
-							<name>mysql</name>
+							<name>mysql:5.5.57</name>
                             <alias>mysqldb</alias>
 							<run>
                                 <!--expose port for dn-->

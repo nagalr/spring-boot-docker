@@ -111,14 +111,20 @@
                                     <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
                                 </env>
                                 <dependsOn>
+                                    <!-- fabric8 will wait until these two will run -->
+                                    <!-- before executing the current container -->
+                                    <!-- notice it does not depend on mysql directly -->
                                     <container>myrabbitmq</container>
                                     <container>pageviewservice</container>
                                 </dependsOn>
                             </run>
                         </image>
                         <!-- mysql image-->
+                        <!-- do not depend on other containers -->
                         <image>
                             <name>mysql:5.5.57</name>
+                            <!-- alias will become the container name -->
+                            <!-- will be in usage also in networking -->
                             <alias>mysqldb</alias>
                             <run>
                                 <!--expose port for dn-->
@@ -127,16 +133,19 @@
                                 </ports>
                                 <!--set env prams for mysql image-->
                                 <env>
+                                    <!-- initialize a db to 'pageviewservice' -->
+                                    <!-- allowing empty password for root -->
                                     <MYSQL_DATABASE>pageviewservice</MYSQL_DATABASE>
                                     <MYSQL_ALLOW_EMPTY_PASSWORD>yes</MYSQL_ALLOW_EMPTY_PASSWORD>
                                 </env>
-                                <!--wait for db to start-->
+                                <!--wait 10 seconds for db to start-->
                                 <wait>
                                     <time>10000</time>
                                 </wait>
                             </run>
                         </image>
                         <!-- rabbit image-->
+                        <!-- do not depend on other containers -->
                         <image>
                             <name>rabbitmq</name>
                             <alias>myrabbitmq</alias>
@@ -147,7 +156,7 @@
                                     <port>4369</port>
                                     <port>25672</port>
                                 </ports>
-                                <!--wait for db to start-->
+                                <!--wait 10 seconds for db to start-->
                                 <wait>
                                     <time>10000</time>
                                 </wait>
@@ -168,22 +177,33 @@
                                 <ports>
                                     <port>8081:8081</port>
                                 </ports>
+                                <!-- links to the aliases, that becomes a hostname -->
+                                <!-- 'myrabbitmq' becomes the hostname of rabbitmq server -->
+                                <!-- 'mysqldb' becomes the hostname of mysql server -->
                                 <links>
                                     <link>myrabbitmq:rabbitmq</link>
                                     <link>mysqldb:mysqldb</link>
                                 </links>
+                                <!-- the db-connect-url contains the alias 'mysqldb' as a hostname-->
+                                <!-- looking for the hostname-ip results in the mysql container ip -->
                                 <env>
                                     <SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/pageviewservice
                                     </SPRING_DATASOURCE_URL>
                                     <SPRING_PROFILES_ACTIVE>mysql</SPRING_PROFILES_ACTIVE>
                                     <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
                                 </env>
+                                <!-- depends on rabbitmq and mysql -->
+                                <!-- fabric8 will wait until these two will run -->
+                                <!-- before executing the current container -->
                                 <dependsOn>
                                     <container>myrabbitmq</container>
                                     <container>mysql</container>
                                 </dependsOn>
                                 <wait>
                                     <!-- waiting for a 'health-response' not working, so commented-->
+                                    <!-- wait for the actuator 'health' signal will status code -->
+                                    <!--- wait up to 75 seconds for this to be available -->
+                                    <!-- if it will not get that in 75 seconds, the startup will fail -->
                                     <!-- <http>-->
                                     <!-- <url>http://localhost:8081/health</url>-->
                                     <!-- <method>GET</method>-->

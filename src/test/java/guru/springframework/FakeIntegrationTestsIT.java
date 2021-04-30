@@ -2,9 +2,7 @@ package guru.springframework;
 
 import org.junit.Test;
 
-/**
- * Created by jt on 3/23/17.
- */
+
 public class FakeIntegrationTestsIT {
 
     @Test

@@ -88,6 +88,7 @@
                     <images>
                         <image>
                             <name>${docker.image.prefix}/${docker.image.name}</name>
+                            <alias>webapp</alias>
                             <build>
                                 <dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
 
@@ -108,6 +109,11 @@
                                     <link>myrabbitmq:rabbitmq</link>
                                 </links>
                                 <env>
+                                    <!-- sets the rabbitmq host -->
+                                    <!-- after linking the containers, telling spring about that -->
+                                    <!-- in 'application.properties' we don't have a host-value for: -->
+                                    <!-- spring.rabbitmq.host= , hence we define it here -->
+                                    <!-- so this web-app can find rabbitmq to send messages -->
                                     <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
                                 </env>
                                 <dependsOn>

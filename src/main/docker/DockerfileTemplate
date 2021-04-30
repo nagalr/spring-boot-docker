@@ -3,4 +3,4 @@ FROM openjdk:8
 VOLUME /tmp
 ADD maven/${fileName}.jar ${fileName}.jar
 RUN sh -c 'touch /${fileName}'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/${fileName}.jar"]
+ENTRYPOINT ["java","-jar","/${fileName}.jar"]

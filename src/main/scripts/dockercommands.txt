@@ -10,14 +10,24 @@ docker run --name pageviewservice -p 8081:8081  springframeworkguru/pageviewserv
 ## does not work
 docker run --name pageviewservice -p 8081:8081 -e SPRING_DATASOURCE_URL=jdbc:mysql://127.0.0.1:3306/pageviewservice -e SPRING_PROFILES_ACTIVE=mysql springframeworkguru/pageviewservice
 
+# The service run-command includes a link to the previous containers'
 docker run --name pageviewservice -p 8081:8081 \
 --link rabbitmq:rabbitmq \
 --link mysqldb:mysqldb \
 -e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice \
--e SPRING_PROFILES_ACTIVE=mysql  \
+-e SPRING_PROFILES_ACTIVE=mysql \
 -e SPRING_RABBITMQ_HOST=rabbitmq \
-springframeworkguru/pageviewservice
+ronnen/pageservice
 
+# The main docker run-command includes a link to the previous containers'
+docker run --name dockerservice -p 8080:8080 \
+--link rabbitmq:rabbitmq \
+--link mysqldb:mysqldb \
+--link pageviewservice:pageviewservice \
+-e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice \
+-e SPRING_PROFILES_ACTIVE=mysql \
+-e SPRING_RABBITMQ_HOST=rabbitmq \
+ronnen/docker
 
 # Example MVN Command for CI
 mvn clean package verify docker:push

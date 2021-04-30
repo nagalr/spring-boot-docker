@@ -154,10 +154,13 @@
                             </run>
                         </image>
 
-<!--                        docker run &#45;&#45;name pageviewservice -p 8081:8081 &#45;&#45;link rabbitmq:rabbitmq &#45;&#45;link mysqldb:mysqldb-->
-<!--                        -e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice -e-->
-<!--                        SPRING_PROFILES_ACTIVE=mysql-->
-<!--                        -e SPRING_RABBITMQ_HOST=rabbitmq ronnen/pageservice-->
+                        <!-- docker run minus-minus-name pageviewservice -p 8081:8081 \ -->
+                        <!-- minus-minus-link rabbitmq:rabbitmq \ -->
+                        <!-- minus-minus-link mysqldb:mysqldb \ -->
+                        <!-- -e SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/pageviewservice \-->
+                        <!-- -e SPRING_PROFILES_ACTIVE=mysql \-->
+                        <!--  -e SPRING_RABBITMQ_HOST=rabbitmq \ -->
+                        <!-- ronnen/pageservice-->
                         <image>
                             <name>ronnen/pageservice</name>
                             <alias>pageviewservice</alias>
@@ -180,11 +183,12 @@
                                     <container>mysql</container>
                                 </dependsOn>
                                 <wait>
-<!--                                    <http>-->
-<!--                                        <url>http://localhost:8081/health</url>-->
-<!--                                        <method>GET</method>-->
-<!--                                        <status>200..399</status>-->
-<!--                                    </http>-->
+                                    <!-- waiting for a 'health-response' not working, so commented-->
+                                    <!-- <http>-->
+                                    <!-- <url>http://localhost:8081/health</url>-->
+                                    <!-- <method>GET</method>-->
+                                    <!-- <status>200..399</status>-->
+                                    <!-- </http>-->
                                     <time>75000</time>
                                 </wait>
                             </run>

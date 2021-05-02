@@ -31,11 +31,13 @@ services:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysqldb:3306/pageviewservice'
       SPRING_PROFILES_ACTIVE: 'mysql'
       SPRING_RABBITMQ_HOST: rabbitmq
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
+
+    # not sure about the 'health' point check
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+#      interval: 1m30s
+#      timeout: 10s
+#      retries: 3
 
   webapp:
     image: ronnen/docker
@@ -47,3 +49,11 @@ services:
       - pageviewservice
     environment:
       SPRING_RABBITMQ_HOST: 'rabbitmq'
+    links:
+      - rabbitmq:rabbitmq
+    # not sure about the 'health' point check
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+#      interval: 1m30s
+#      timeout: 10s
+#      retries: 3

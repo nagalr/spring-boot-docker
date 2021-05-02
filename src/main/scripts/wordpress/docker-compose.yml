@@ -3,10 +3,10 @@ version: '3.1' # specifies the api version of docker-compose
 services: # two services here
 
   wordpress: # the WordPress service
-    image: wordpress
+    image: wordpress # the latest image of WordPress
     restart: always # if the container fails, docker will restart it
     ports:
-      - 8080:80
+      - 8080:80 # maps local port 8080 to container port 80
     environment: # env variables
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser

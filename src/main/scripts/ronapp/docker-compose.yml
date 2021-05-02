@@ -24,7 +24,7 @@ services:
     ports:
       - "8081:8081"
     restart: always
-    depends_on: # dependencies and alias name 'mysqldb' for the db, in-usage in env-vars
+    depends_on:
       - mysqldb
       - rabbitmq
     environment:
@@ -36,3 +36,14 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
+
+  webapp:
+    image: ronnen/docker
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - rabbitmq
+      - pageviewservice
+    environment:
+      SPRING_RABBITMQ_HOST: 'rabbitmq'

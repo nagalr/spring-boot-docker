@@ -1,5 +1,8 @@
+# upon-creation, two containers will create will default names:
+# 'wordpress_wordpress_1' and 'wordpress_db_1'
 version: '3.1' # specifies the api version of docker-compose
 
+# two services definitions: WordPress and MySql
 services: # two services here
 
   wordpress: # the WordPress service
@@ -15,6 +18,7 @@ services: # two services here
     volumes:
       - wordpress:/var/www/html # volume map
 
+# the db image, does-not exposed to the host (no 'ports' rag) only to WordPress
   db: # the database service
     image: mysql:5.7
     restart: always

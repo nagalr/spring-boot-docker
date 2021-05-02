@@ -1,21 +1,21 @@
-version: '3.1'
+version: '3.1' # specifies the api version of docker-compose
 
-services:
+services: # two services here
 
-  wordpress:
+  wordpress: # the WordPress service
     image: wordpress
-    restart: always
+    restart: always # if the container fails, docker will restart it
     ports:
       - 8080:80
-    environment:
+    environment: # env variables
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/var/www/html # volume map
 
-  db:
+  db: # the database service
     image: mysql:5.7
     restart: always
     environment:
@@ -26,6 +26,8 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+# if we want the volume to persist in localhost, we need to specify the paths
+# to the volumes-directories here:
 volumes:
   wordpress:
   db:

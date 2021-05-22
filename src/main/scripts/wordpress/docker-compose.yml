@@ -1,0 +1,37 @@
+# upon-creation, two containers will create will default names:
+# 'wordpress_wordpress_1' and 'wordpress_db_1'
+version: '3.1' # specifies the api version of docker-compose
+
+# two services definitions: WordPress and MySql
+services: # two services here
+
+  wordpress: # the WordPress service
+    image: wordpress # the latest image of WordPress
+    restart: always # if the container fails, docker will restart it
+    ports:
+      - 8080:80 # maps local port 8080 to container port 80
+    environment: # env variables
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html # volume map
+
+# the db image, does-not exposed to the host (no 'ports' rag) only to WordPress
+  db: # the database service
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+# if we want the volume to persist in localhost, we need to specify the paths
+# to the volumes-directories here:
+volumes:
+  wordpress:
+  db:
